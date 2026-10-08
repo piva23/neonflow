@@ -1,0 +1,64 @@
+{
+  "name": "NeonFlow - Music Player & Plataforma Familiar",
+  "short_name": "NeonFlow",
+  "description": "Plataforma e Player Imersivo de Música Familiar com bibliotecas compartilhadas e sessões interativas.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#080911",
+  "theme_color": "#080911",
+  "dir": "ltr",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Biblioteca",
+      "short_name": "Biblioteca",
+      "description": "Acessar acervo musical familiar",
+      "url": "/#biblioteca",
+      "icons": [{ "src": "/icon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Playlists",
+      "short_name": "Playlists",
+      "description": "Ver playlists da família",
+      "url": "/#playlists",
+      "icons": [{ "src": "/icon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Sessões Musicais",
+      "short_name": "Sessões",
+      "description": "Iniciar ou participar de sessões",
+      "url": "/#sessoes",
+      "icons": [{ "src": "/icon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Gestão da Família",
+      "short_name": "Família",
+      "description": "Gerenciar membros e perfis",
+      "url": "/#familia",
+      "icons": [{ "src": "/icon.svg", "sizes": "any" }]
+    }
+  ],
+  "categories": ["entertainment", "music", "utilities"]
+}
