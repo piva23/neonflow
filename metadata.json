@@ -2,5 +2,5 @@
   "name": "NeonFlow",
   "description": "A sleek, professional family-focused music sharing platform with shared libraries, individual profiles, and gamification elements.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }
