@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Music, ListMusic, Users, Activity, Plus, Flame, Award, Play, Radio, ArrowRight, Sparkles, Clock, History } from 'lucide-react';
 import { useFamily, useMember, usePlaylist, usePlayer, useSession } from '../hooks';
@@ -15,6 +15,16 @@ export const Home: React.FC = () => {
   const { sessions, deleteSession } = useSession();
 
   const [selectedSession, setSelectedSession] = useState<Session | null>(null);
+
+  // Redirect to Biblioteca on mount if family exists
+  useEffect(() => {
+    if (hasFamily && members.length > 0) {
+      const timeoutId = setTimeout(() => {
+        navigate('/biblioteca');
+      }, 1500);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [hasFamily, members.length, navigate]);
 
   // Onboarding Modal state for First Run
   const [isFirstRunModalOpen, setIsFirstRunModalOpen] = useState(false);

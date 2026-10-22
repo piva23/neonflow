@@ -104,6 +104,12 @@ export async function searchYouTube(
     }
   } catch (err) {
     console.warn('[youtubeSearchService] Error calling RapidAPI YouTube V2:', err);
+    // Key may be expired/invalid - fallback handled below
+  }
+
+  // RapidAPI key expired or invalid - inform user
+  if (!import.meta.env.VITE_RAPIDAPI_KEY) {
+    // Will show friendly message in component if no results returned
   }
 
   // 2. Secondary Fallback: Official YouTube Data API v3 if key available

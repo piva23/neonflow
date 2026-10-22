@@ -75,6 +75,8 @@ export async function downloadYouTubeMp3RapidApi(
     return blob;
   } catch (error) {
     console.error('[RapidAPI YouTube MP3] Falha no processo de download:', error);
-    throw error;
+    // Verify if it's a key/auth error vs network error
+    const errorMessage = error.message || 'Erro desconhecido';
+    throw new Error(`RapidAPI YouTube MP3: ${errorMessage}. \n\nSugestão: \n1. Verifique se sua chave VITE_RAPIDAPI_KEY está válida em rapidapi.com \n2. O plano gratuito pode ter limitações de requisições \n3. Alternativa: use links diretos do YouTube ou arquivos locais`);
   }
 }
