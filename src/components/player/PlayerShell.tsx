@@ -73,7 +73,7 @@ export const PlayerShell: React.FC<PlayerShellProps> = ({
 
     setLyricsLoading(true);
     setLyricsError('');
-    setLyricsContent();
+    setLyricsContent('');
 
     try {
       const result = await getSongLyrics(currentTrack.title, currentTrack.artist);
@@ -128,6 +128,12 @@ export const PlayerShell: React.FC<PlayerShellProps> = ({
     }
   };
 
+  {/* Play button onClick handler - inline function to avoid syntax issues */}
+  const handlePlayPause = () => {
+    console.log('Toggle play');
+    // Would integrate with player state
+  };
+
   return (
     <div className="select-none">
       {/* Hidden container for engine bridge */}
@@ -170,7 +176,7 @@ export const PlayerShell: React.FC<PlayerShellProps> = ({
                     `https://img.youtube.com/vi/${currentTrack.youtubeId}/hqdefault.jpg`
                   }
                   alt={currentTrack.title}
-                  className="w-full h-full object-cover transition-transform group-hover:scale-105 group-hover:brightness-110 transition-transform"
+                  className="w-full h-44 sm:h-48 lg:h-56 rounded-2xl object-cover transition-transform group-hover:scale-105 group-hover:brightness-110 transition-transform"
                   referrerPolicy="no-referrer"
                 />
                 {isPlaying && (
@@ -199,6 +205,14 @@ export const PlayerShell: React.FC<PlayerShellProps> = ({
               <ProgressBar />
 
               <div className="flex items-center justify-between w-full gap-2">
+                {/* Fila + Favorito */}
+                <div className="flex items-center gap-2">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-brand-cyan">Fila</span>
+                  <span className="relative -top-0.5 -right-0.5 px-1.5 py-0.2 bg-brand-cyan text-black font-black text-[9px] rounded-full shadow-sm">
+                    {queue.length}
+                  </span>
+                </div>
+
                 <button
                   onClick={handleToggleFavorite}
                   className={`p-2 rounded-xl transition-colors cursor-pointer shrink-0 ${
@@ -210,13 +224,6 @@ export const PlayerShell: React.FC<PlayerShellProps> = ({
                 >
                   <Heart className={`w-4 h-4 ${currentTrack.favorite ? 'fill-current' : ''}`} />
                 </button>
-
-                <div className="flex items-center gap-2">
-                  <span className="text-[9px] font-black uppercase tracking-widest text-brand-cyan">Fila</span>
-                  <span className="relative -top-0.5 -right-0.5 px-1.5 py-0.2 bg-brand-cyan text-black font-black text-[9px] rounded-full shadow-sm">
-                    {queue.length}
-                  </span>
-                </div>
               </div>
 
               <div className="flex items-center justify-between w-full gap-2">
@@ -313,7 +320,6 @@ export const PlayerShell: React.FC<PlayerShellProps> = ({
                 {/* Time display */}
                 <div className="text-xs text-brand-text-muted">
                   <span>0:00</span>
-                  <span>{/* duration would come from track */}</span>
                 </div>
 
                 {/* Controls */}
@@ -340,10 +346,7 @@ export const PlayerShell: React.FC<PlayerShellProps> = ({
 
                   {/* Play/Pause - prominent */}
                   <button
-                    onClick={() => {
-                      // Toggle play/pause - would integrate with player state
-                      console.log('Toggle play');
-                    }
+                    onClick={handlePlayPause}
                     className="p-3 rounded-full bg-gradient-to-br from-brand-purple to-brand-purple/from-content via-brand-purple/from-content to-brand-purple/from-content bg-opacity-80 backdrop-blur flex items-center justify-center"
                     aria-label="Play/Pause"
                   >
@@ -451,7 +454,7 @@ export const PlayerShell: React.FC<PlayerShellProps> = ({
             </div>
           )}
 
-          {/* Bottom mini control when expanded */} 
+          {/* Bottom mini control when expanded */adge} 
           <footer className="p-4 border-t border-border/60 bg-[color:#0a0a12] backdrop-blur-xl fixed bottom-0 left-0 right-0">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -478,7 +481,12 @@ export const PlayerShell: React.FC<PlayerShellProps> = ({
                   className="p-2 rounded-lg bg-white/10 hover:bg-white/5 transition-colors cursor-pointer"
                   title="Anterior"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -490,7 +498,7 @@ export const PlayerShell: React.FC<PlayerShellProps> = ({
 
                 {/* Play/Pause */}
                 <button
-                  onClick={() => console.log('toggle play')}
+                  onClick={handlePlayPause}
                   className="p-3 rounded-full bg-gradient-to-br from-brand-purple to-brand-purple/from-content via-brand-purple/from-content to-brand-purple/from-content bg-opacity-80 backdrop-blur flex items-center justify-center"
                   aria-label="Play/Pause"
                 >
@@ -506,7 +514,7 @@ export const PlayerShell: React.FC<PlayerShellProps> = ({
                         strokeLinejoin="round"
                         strokeWidth={2}
                         d="M6 18L18 12M6 6l12 6m6 10L6 6m6 10l12-6m-6 10l12 6"
-                      />
+                      )
                     ) : (
                       <path
                         strokeLinecap="round"
