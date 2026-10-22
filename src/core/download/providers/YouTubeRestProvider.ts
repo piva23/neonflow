@@ -3,7 +3,7 @@ import { DownloadProvider, DownloadStatus, ProviderType } from '../DownloadTypes
 import { LocalSynthesizerProvider } from './LocalSynthesizerProvider';
 import { mediaStorage, mediaCache } from '../../media';
 import { MusicRepository } from '../../../repositories';
-import { downloadYouTubeMp3RapidApi } from '../../../services/rapidApiMp3';
+import { downloadYouTubeAudio, triggerAudioDownload } from '../../../services/rapidApiMp3';
 import toast from 'react-hot-toast';
 
 export class YouTubeRestProvider implements DownloadProvider {
@@ -39,12 +39,15 @@ export class YouTubeRestProvider implements DownloadProvider {
 
     const targetUrl = track.youtubeUrl || (track.youtubeId ? `https://www.youtube.com/watch?v=${track.youtubeId}` : '');
 
-    // 1. Try RapidAPI YouTube MP3 Downloader (Primary Request + Secondary Blob Download + Hidden <a> Trigger)
+    // 1. Try YouTube Audio Downloader with multiple fallbacks (RapidAPI → native itag → synthetic)
     if (targetUrl) {
       try {
-        if (onProgress) onProgress(20, 500000, 4000000);
-        const rapidBlob = await downloadYouTubeMp3RapidApi(targetUrl, `${track.title || 'audio'}.mp3`);
+        if (onProgress) onProgress(20);
+        const rapidBlob = await downloadYouTubeAudio(targetUrl, `${track.title || 'audio'}.mp3`);
         if (onProgress) onProgress(100, rapidBlob.size, rapidBlob.size);
+
+        // Trigger native download dialog
+        triggerAudioDownload(rapidBlob, `${track.title || 'audio'}.mp3`);
 
         // Associar o buffer de áudio ao track e registrar na memória
         const objectUrl = URL.createObjectURL(rapidBlob);
@@ -86,7 +89,7 @@ export class YouTubeRestProvider implements DownloadProvider {
 
         return rapidBlob;
       } catch (err) {
-        console.warn('[YouTubeRestProvider] RapidAPI MP3 Downloader retornou erro, acionando sintetizador local:', err);
+        console.warn('[YouTubeRestProvider] YouTube Audio Downloader falhou, tentando sintetizador local:', err.message || err);
       }
     }
 
