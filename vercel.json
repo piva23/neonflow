@@ -1,7 +1,6 @@
 {
   "buildCommand": "vite build",
   "framework": "vite",
-  "output": "dist",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
