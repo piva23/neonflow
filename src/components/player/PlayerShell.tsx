@@ -509,19 +509,23 @@ export const PlayerShell: React.FC<PlayerShellProps> = ({
                     viewBox="0 0 24 24"
                   >
                     {isPlaying ? (
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 12M6 6l12 6m6 10L6 6m6 10l12-6m-6 10l12 6"
-                      )
+                      <>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 12M6 6l12 6m6 10L6 6m6 10l12-6m-6 10l12 6"
+                        />
+                      </>
                     ) : (
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M18 16L6 6m6 10L6 6m6 10l12-6m-6 10l12 6"
-                      />
+                      <>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M18 16L6 6m6 10L6 6m6 10l12-6m-6 10l12 6"
+                        />
+                      </>
                     )}
                   </svg>
                 </button>
