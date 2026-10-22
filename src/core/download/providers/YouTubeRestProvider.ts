@@ -9,7 +9,8 @@ import toast from 'react-hot-toast';
  * YouTube Rest Provider - Versão simplificada
  * 
  * Nota: O download de áudio MP3 via RapidAPI e itags do YouTube
- * não está disponível neste ambiente de deployment (erros 502 e DNS).
+ * não está disponível neste ambiente de deployment (erros 502, DNS
+ * ERR_NAME_NOT_RESOLVED e ERR_REQUEST_RANGE_NOT_SATISFIABLE).
  * O player foca na reprodução nativa do YouTube embutido.
  */
 
@@ -43,15 +44,15 @@ export class YouTubeRestProvider implements DownloadProvider {
     this.activeDownloads.set(track.id, true);
 
     // O download direto de áudio MP3 não está disponível neste ambiente.
-    // Mostrar aviso e usar reprodução nativa do YouTube.
+    // O NeonFlow usa reprodução nativa do YouTube embutido.
     toast({
-      title: 'Download Desabilitado',
-      description: 'Reprodução nativa do YouTube em vez de download MP3.',
+      title: 'Reprodução Native do YouTube',
+      description: 'Toque a faixa diretamente no player. Download MP3 desabilitado temporariamente.',
       variant: 'info',
     });
 
-    // Retornar blob sintético curto para indicar que o track está ativo
-    // O player usará a URL do YouTube embutida para playback
-    return new Blob([''], { type: 'audio/mpeg' });
+    // Retornar blob nulo - o player usará a URL do YouTube embutida
+    // para playback em vez de um arquivo download.
+    return new Blob([], { type: 'audio/mpeg' });
   }
 }
